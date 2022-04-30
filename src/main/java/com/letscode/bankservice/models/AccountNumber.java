@@ -14,5 +14,7 @@ public class AccountNumber {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
     private int number;
 }

@@ -4,10 +4,9 @@ import com.letscode.bankservice.dto.AccountNumberResponse;
 import com.letscode.bankservice.models.AccountNumber;
 import com.letscode.bankservice.repository.AccountNumberRepository;
 import com.letscode.bankservice.services.AccountNumberService;
+import com.letscode.bankservice.utils.GenerateNumber;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -17,9 +16,8 @@ public class AccountNumberServiceImpl implements AccountNumberService {
 
     @Override
     public AccountNumberResponse create() {
-        AccountNumber accountNumber = new AccountNumber();
-        Random generator = new Random();
-        accountNumber.setNumber(generator.nextInt(100) * 10);
+        GenerateNumber generateNumber = new GenerateNumber();
+        var accountNumber = AccountNumber.builder().number(generateNumber.execute()).build();
         accountNumberRepository.save(accountNumber);
         return new AccountNumberResponse(accountNumber);
     }
